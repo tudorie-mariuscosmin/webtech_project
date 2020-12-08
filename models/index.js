@@ -1,7 +1,10 @@
 const sequelize = require('../config/db')
+const Sequelize = require('sequelize')
+
+const userModel = require('./user')
 
 const models = {
-    User: sequelize.import('./user')
+    User: userModel(sequelize, Sequelize.DataTypes)
 }
 
 

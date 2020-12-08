@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const controllers = require('../controllers')
+const authRoutes = require('./auth')
+const { startupController } = require('../controllers')
 
-router.get('/test', controllers.test)
-
+router.get('/reset', startupController.resetDatabase)
+router.use('/auth', authRoutes)
 
 module.exports = router

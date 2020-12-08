@@ -1,7 +1,6 @@
 const controllers = {
-    test: (req, res) => {
-        res.json('helo world')
-    }
+    startupController: require('./startup'),
+    authController: require('./auth')
 }
 
 module.exports = controllers
