@@ -5,5 +5,5 @@ const app = express()
 app.use(bodyParser.json())
 app.use('/api', routes)
 
-const PORT = 8080
+const PORT = require('./config.json').port
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

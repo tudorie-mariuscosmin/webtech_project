@@ -42,14 +42,22 @@ module.exports = {
                     }
 
                 } catch (err) {
-
-                    if (err) {
+                    if (err.name === 'JsonWebTokenError') {
                         console.warn(err)
-                        res.sendStatus(500)
+                        res.status(403).json({ message: err.message })
+                    } else {
+                        console.warn(err)
+                        res.status(500).json({ message: err.message })
                     }
                 }
 
             }
+        },
+        isAdmin: (req, res, next) => {
+            if (req.user.isAdmin === 1)
+                next()
+            else
+                res.sendStatus(403)
         }
 
     }

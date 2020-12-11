@@ -1,4 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
+    const DataTypes = Sequelize.DataTypes
     return sequelize.define(
         'user',
         {
@@ -6,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             lastName: { type: DataTypes.STRING, allowNull: false, validate: { len: [3, 20] } },
             email: { type: DataTypes.STRING, allowNull: false },
             password: { type: DataTypes.STRING, allowNull: false },
-            isAdmin: { type: DataTypes.INTEGER, default: 0 }
+            isAdmin: { type: DataTypes.INTEGER, defaultValue: 0 }
 
         }
     )

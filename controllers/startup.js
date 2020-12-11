@@ -1,7 +1,7 @@
 
 const models = require('../models')
 
-const controller = {
+module.exports = {
     resetDatabase: async (req, res) => {
         try {
             await models.sequelize.sync({ force: true })
@@ -23,5 +23,3 @@ const controller = {
         }
     }
 }
-
-module.exports = controller
