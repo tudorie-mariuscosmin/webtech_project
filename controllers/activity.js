@@ -50,5 +50,28 @@ module.exports = {
             console.warn(err)
             res.status(500).json({ err: err.message })
         }
+    },
+    updateActivities: async (req, res) => {
+        try {
+            const activity = await Activity.findByPk(req.params.activityId)
+            if(activity) {
+                if(req.body.name) {
+                    activity.name = req.body.name
+                } 
+                if(req.body.subject) {
+                    activity.subject = req.body.subject
+                }
+                if(req.body.description) {
+                    activity.description = req.body.description
+                }
+                await activity.save()
+                res.status(200).json({message: "Activity updated!"})
+            } else {
+                res.status(404).json({message: "Activity not found!"})
+            }
+        } catch (err) {
+            console.warn(err)
+            res.status(500).json({ err: err.message })
+        }
     }
 }

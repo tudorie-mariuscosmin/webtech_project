@@ -16,6 +16,8 @@ module.exports = {
                     if (user.password === req.body.password) {
                         const token = jwt.sign(user.id, jwtSecret)
                         res.status(200).json({ token })
+                    } else {
+                        res.status(400).json({message: 'Invalid credentials'})
                     }
                 }
             } catch (error) {

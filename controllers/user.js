@@ -68,5 +68,39 @@ module.exports = {
             console.warn(err);
             res.status(500).json({ message: err.message })
         }
+    },
+    changeUserPassword: async (req, res) => {
+        if(!req.body.password) {
+            res.status(400).json({message: 'Invalid request'})
+        } else {
+            try {
+                const user = await User.findByPk(req.user.id)
+                if(user) {
+                    user.password = req.body.password
+                    await user.save()
+                    res.status(200).json({message: 'Password updated!'})
+                }
+            } catch (err) {
+                console.warn(err);
+                res.status(500).json({ message: err.message })
+            }
+        }
+    },
+    changeUserEmail: async (req, res) => {
+        if(!req.body.email || !req.body.email.match(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim)) {
+            res.status(400).json({message: 'Invalid email!'})
+        } else {
+            try {
+                const user = await User.findByPk(req.user.id)
+                if(user) {
+                    user.email = req.body.email
+                    await user.save()
+                    res.status(200).json({message: 'Email updated!'})
+                }
+            } catch (err) {
+                console.warn(err);
+                res.status(500).json({ message: err.message })
+            }
+        }
     }
 }
