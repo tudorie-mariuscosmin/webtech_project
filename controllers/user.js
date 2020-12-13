@@ -14,7 +14,7 @@ module.exports = {
                     res.status(400).json({ message: 'User already registred' })
                 } else {
                     const password = Math.random().toString(36).slice(-8)
-                    const user = await User.create({
+                    await User.create({
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
@@ -50,7 +50,7 @@ module.exports = {
         try {
             let users = await User.findAll(querry)
             if (users) {
-                const data = users.map(user => {
+                const data = users.filter(user => user.id !== req.user.id).map(user => {
                     return {
                         firstName: user.firstName,
                         lastName: user.lastName,
@@ -59,6 +59,7 @@ module.exports = {
                 });
 
                 res.status(200).json(data)
+
             } else {
                 res.status(404).json({ message: 'Users not found' })
             }

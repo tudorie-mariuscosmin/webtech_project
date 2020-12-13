@@ -5,7 +5,7 @@ The ShowRunners team project
 ---
 ### Tasks
 
-[Trello board](https://trello.com/b/xwuMayzP/webtech-project)
+[Trello board](https://trello.com/invite/b/xwuMayzP/644c126939c5280bb238eca7a71137db/webtech-project)
 
 ---
 ### Postman Collection
