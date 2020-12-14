@@ -6,5 +6,9 @@
         "password": "",
         "dialect": "mysql"
     },
-    "jwtSecret": "50cbc71dab09778729c73caa37c80f9d3141b3fabb1b067cd085590455e019c2a223410e3545a96398f1d1b70eba2ffa1326f6d5890f4fbdba2dc9873c4c3583"
+    "jwtSecret": "50cbc71dab09778729c73caa37c80f9d3141b3fabb1b067cd085590455e019c2a223410e3545a96398f1d1b70eba2ffa1326f6d5890f4fbdba2dc9873c4c3583",
+    "smtpCredentials": {
+        "user": "kailey.rosenbaum@ethereal.email",
+        "pass": "quBqyXKBEcGHvDhbYt"
+    }
 }

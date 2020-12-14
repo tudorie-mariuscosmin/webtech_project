@@ -1,5 +1,6 @@
 const { User } = require('../models')
 const { Op } = require('sequelize')
+const transporter = require('../config/emailService')
 
 module.exports = {
     createUser: async (req, res) => {
@@ -14,13 +15,34 @@ module.exports = {
                     res.status(400).json({ message: 'User already registred' })
                 } else {
                     const password = Math.random().toString(36).slice(-8)
-                    await User.create({
+                    const user = await User.create({
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
                         password
                     })
-
+                    let info = await transporter.sendMail({
+                        from: '"The ShowRunners" <theShowRunners@.appcom>',
+                        to: `${user.email}`,
+                        subject: "",
+                        text: ` Hello ${user.firstName},
+                        You have been registred to our continuos feedback application!
+                        Here are your credentials in order to start using it:
+                            -Email: ${user.email}
+                            -Password: ${user.password}
+                        Good luck!
+                        -The ShowRunners team-`,
+                        html: ` <h3>Hello ${user.firstName},</h3>
+                        <p>You have been registred to our continuos feedback application!</p>
+                        <p>Here are your credentials in order to start using it:<p>
+                        <ul>
+                            <li>Email: ${user.email}</li>
+                            <li>Password: ${user.password}</li>
+                        </ul>
+                        <p>Good luck!
+                        -The ShowRunners team-</p> `
+                    });
+                    console.log("Message sent: %s", info.messageId);
                     res.status(201).json({ message: 'Created' })
                 }
             } catch (err) {
@@ -58,6 +80,7 @@ module.exports = {
                     }
                 });
 
+
                 res.status(200).json(data)
 
             } else {
@@ -70,15 +93,15 @@ module.exports = {
         }
     },
     changeUserPassword: async (req, res) => {
-        if(!req.body.password) {
-            res.status(400).json({message: 'Invalid request'})
+        if (!req.body.password) {
+            res.status(400).json({ message: 'Invalid request' })
         } else {
             try {
                 const user = await User.findByPk(req.user.id)
-                if(user) {
+                if (user) {
                     user.password = req.body.password
                     await user.save()
-                    res.status(200).json({message: 'Password updated!'})
+                    res.status(200).json({ message: 'Password updated!' })
                 }
             } catch (err) {
                 console.warn(err);
@@ -87,15 +110,15 @@ module.exports = {
         }
     },
     changeUserEmail: async (req, res) => {
-        if(!req.body.email || !req.body.email.match(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim)) {
-            res.status(400).json({message: 'Invalid email!'})
+        if (!req.body.email || !req.body.email.match(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim)) {
+            res.status(400).json({ message: 'Invalid email!' })
         } else {
             try {
                 const user = await User.findByPk(req.user.id)
-                if(user) {
+                if (user) {
                     user.email = req.body.email
                     await user.save()
-                    res.status(200).json({message: 'Email updated!'})
+                    res.status(200).json({ message: 'Email updated!' })
                 }
             } catch (err) {
                 console.warn(err);
