@@ -54,20 +54,44 @@ module.exports = {
     updateActivities: async (req, res) => {
         try {
             const activity = await Activity.findByPk(req.params.activityId)
-            if(activity) {
-                if(req.body.name) {
+            if (activity) {
+                if (req.body.name) {
                     activity.name = req.body.name
-                } 
-                if(req.body.subject) {
+                }
+                if (req.body.subject) {
                     activity.subject = req.body.subject
                 }
-                if(req.body.description) {
+                if (req.body.description) {
                     activity.description = req.body.description
                 }
                 await activity.save()
-                res.status(200).json({message: "Activity updated!"})
+                res.status(200).json({ message: "Activity updated!" })
             } else {
-                res.status(404).json({message: "Activity not found!"})
+                res.status(404).json({ message: "Activity not found!" })
+            }
+        } catch (err) {
+            console.warn(err)
+            res.status(500).json({ err: err.message })
+        }
+    },
+
+    getActivity: async (req, res) => {
+        try {
+            const activity = await Activity.findOne({
+                where: {
+                    token: req.params.token
+                }
+            })
+
+            if (activity) {
+                res.json({
+                    name: activity.name,
+                    subject: activity.subject,
+                    description: activity.description,
+                    token: activity.token
+                })
+            } else {
+                res.status(404).json({ message: 'No activity found' })
             }
         } catch (err) {
             console.warn(err)

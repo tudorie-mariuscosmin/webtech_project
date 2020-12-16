@@ -24,7 +24,7 @@ module.exports = {
                     let info = await transporter.sendMail({
                         from: '"The ShowRunners" <theShowRunners@.appcom>',
                         to: `${user.email}`,
-                        subject: "",
+                        subject: " The ShowRunners App",
                         text: ` Hello ${user.firstName},
                         You have been registred to our continuos feedback application!
                         Here are your credentials in order to start using it:
