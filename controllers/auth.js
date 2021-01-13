@@ -17,7 +17,7 @@ module.exports = {
                         const token = jwt.sign(user.id, jwtSecret)
                         res.status(200).json({ token })
                     } else {
-                        res.status(400).json({message: 'Invalid credentials'})
+                        res.status(400).json({ message: 'Invalid credentials' })
                     }
                 }
             } catch (error) {
@@ -56,7 +56,7 @@ module.exports = {
             }
         },
         isAdmin: (req, res, next) => {
-            if (req.user.isAdmin === 1)
+            if (req.user.isAdmin === true)
                 next()
             else
                 res.sendStatus(403)

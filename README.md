@@ -14,6 +14,7 @@ The ShowRunners team project
 ---
 ### Mailing Service
 [Etheral Mail](https://ethereal.email/)
+
 Login credentials can be found in config.json
 
 

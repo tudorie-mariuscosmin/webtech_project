@@ -11,7 +11,7 @@ module.exports = {
                 lastName: 'admin',
                 email: 'admin@app.com',
                 password: 'admin',
-                isAdmin: 1
+                isAdmin: true
             })
             res.status(200).json({ message: "created" })
 
