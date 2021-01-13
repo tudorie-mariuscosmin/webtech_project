@@ -1,4 +1,4 @@
-const { User, Activity } = require("../models")
+const { User, Activity, Feedback } = require("../models")
 
 module.exports = {
 
@@ -116,8 +116,37 @@ module.exports = {
 
             }
             else {
+
+            }
+        } catch (err) {
+            console.warn(err)
+            res.status(500).json({ err: err.message })
+        }
+    },
+
+
+    getFeedback: async (req, res) => {
+        try {
+            const activity = await Activity.findOne({
+                include: [Feedback],
+                where: {
+                    id: req.params.activityId,
+                    userId: req.user.id
+                }
+            })
+            if (activity) {
+                const data = activity.feedbacks.map(x => {
+                    return {
+                        id: x.id,
+                        data: x.data,
+                        createdAt: x.createdAt
+                    }
+                })
+                res.status(200).json(data)
+            } else {
                 res.status(404).json({ message: 'No activity found' })
             }
+
         } catch (err) {
             console.warn(err)
             res.status(500).json({ err: err.message })
