@@ -1,0 +1,32 @@
+.info{
+    width: 40%;
+    margin-right: auto;
+    margin-left: auto;
+}
+html{
+   
+    background: #D3CCE3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+/* .feedback-container{
+    width:70;
+    height:80vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+} */
+
+.feedback{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10vw;
+    box-shadow: 2px 2px 3px #636161;
+    margin: 10px;
+    border-radius: 30px;
+}
+

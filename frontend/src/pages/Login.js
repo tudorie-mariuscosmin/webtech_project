@@ -37,7 +37,7 @@ class Login extends React.Component {
                                     <span className="p-float-label">
                                         <InputText id="token" name="token" value={this.state.token} onChange={this.changeHandler} />
 
-                                        <label htmlhtmlFor="token">Activity token</label>
+                                        <label htmlFor="token">Activity token</label>
                                     </span>
                                 </div>
                                 <div>
@@ -51,14 +51,14 @@ class Login extends React.Component {
                                     <span className="p-float-label p-input-icon-left">
                                         <InputText id="email" name="email" value={this.state.email} onChange={this.changeHandler} />
                                         <i className="pi pi-envelope" />
-                                        <label htmlhtmlFor="email">Email</label>
+                                        <label htmlFor="email">Email</label>
                                     </span>
                                 </div>
                                 <div>
                                     <span className="p-float-label p-input-icon-left">
                                         <InputText id="password" name="password" value={this.state.password} onChange={this.changeHandler} />
                                         <i className="pi pi-lock" />
-                                        <label htmlhtmlFor="password">Password</label>
+                                        <label htmlFor="password">Password</label>
                                     </span>
                                 </div>
 
