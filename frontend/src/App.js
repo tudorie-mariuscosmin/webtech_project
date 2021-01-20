@@ -6,6 +6,13 @@ import Dashboard from './pages/Dashboard'
 import axios from 'axios'
 
 class App extends React.Component {
+  isLoggedIn() {
+    const token = localStorage.getItem('token')
+    if (token)
+      return true
+    else
+      return false
+  }
   render() {
     return (
       <Router>
@@ -15,7 +22,7 @@ class App extends React.Component {
               () => {
                 const token = localStorage.getItem('token')
                 if (token) {
-                  axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+                  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                   return <Redirect to='/dashboard' />
                 } else {
                   return <Login />
@@ -30,8 +37,7 @@ class App extends React.Component {
           <Route path='/dashboard' exact>
             {
               () => {
-                const token = localStorage.getItem('token')
-                if (token) {
+                if (this.isLoggedIn) {
                   return <Dashboard />
                 } else {
                   return <Redirect to='/' />

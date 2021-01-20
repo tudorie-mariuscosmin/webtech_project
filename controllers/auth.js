@@ -27,6 +27,10 @@ module.exports = {
         }
     },
 
+    getUserType: (req, res) => {
+        res.status(200).json({ admin: req.user.isAdmin })
+    },
+
     authMiddleware: {
         authenticate: async (req, res, next) => {
             const AuthorizationHeader = req.headers['authorization']
