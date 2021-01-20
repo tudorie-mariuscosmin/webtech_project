@@ -33,7 +33,7 @@ class Activity extends React.Component {
         }
 
         this.sendFeedback = (feedbacksent) => {
-            this.socket.emit('feedback', { token: this.state.token, feedbacksent, time: new Date().toString() })
+            this.socket.emit('feedback', { token: this.state.token, feedbacksent, time: new Date().toISOString() })
         }
     }
     componentDidMount() {

@@ -9,5 +9,6 @@ router.put('/:activityId', authMiddleware.authenticate, activityController.updat
 router.get('/:token', activityController.getActivity)
 router.get('/feedback/:activityId', authMiddleware.authenticate, activityController.getFeedback)
 router.delete('/:activityId', authMiddleware.authenticate, activityController.deleteActivity)
+router.get('/id/:activityId', authMiddleware.authenticate, activityController.getActivitybyId)
 
 module.exports = router

@@ -39,6 +39,9 @@ class Dashboard extends Component {
                     this.setState({ activities: data })
                 })
         }
+        this.activityFeedback = (id) => {
+            this.props.history.push(`/activityFeedback/${id}`)
+        }
 
     }
 
@@ -57,14 +60,13 @@ class Dashboard extends Component {
                         <Button className="p-button-rounded p-button-outlined p-button-help p-mx-2" icon="pi pi-pencil" />
                     </span>
                     <span>
-                        <Button className="p-button-rounded p-button-outlined" icon="pi pi-search-plus" />
+                        <Button className="p-button-rounded p-button-outlined" icon="pi pi-search-plus" onClick={() => { this.activityFeedback(rowData.id) }} />
                     </span>
                 </div>
             )
         }
 
         const rowExpansionTemplate = (data) => {
-            console.log(data)
             return (
                 <div>
                     <DataTable value={[data]}>

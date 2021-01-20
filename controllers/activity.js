@@ -160,11 +160,33 @@ module.exports = {
                 }
             })
             if (activities) {
-                console.log(activities)
+                // console.log(activities)
                 const activity = activities.find(x => x.id == req.params.activityId)
                 if (activity) {
                     await activity.destroy()
                     res.status(200).json({ message: "Activity deleted" })
+                } else {
+                    res.status(404).json({ message: "Activity not found!" })
+                }
+            }
+
+        } catch (err) {
+            console.warn(err)
+            res.status(500).json({ err: err.message })
+        }
+    },
+    getActivitybyId: async (req, res) => {
+        try {
+            const activities = await Activity.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            })
+            if (activities) {
+                //console.log(activities)
+                const activity = activities.find(x => x.id == req.params.activityId)
+                if (activity) {
+                    res.json(activity)
                 } else {
                     res.status(404).json({ message: "Activity not found!" })
                 }

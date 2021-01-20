@@ -1,0 +1,21 @@
+.form{
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.title{
+    text-align: center;
+    font-size: 3em;
+}
+.form div label{
+    font-size: larger;
+}
+.activity-form-btn{
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px){
+    .form{
+        width: 95%;
+    }
+}

@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard'
 import axios from 'axios'
 import Settings from './pages/Settings'
 import AllUsers from './pages/AllUsers'
+import ActivityForm from './pages/ActivityForm'
+import TeacherActivity from './pages/TeacherActivity'
 
 class App extends React.Component {
   isLoggedIn() {
@@ -64,6 +66,28 @@ class App extends React.Component {
               () => {
                 if (this.isLoggedIn()) {
                   return <AllUsers />
+                } else {
+                  return <Redirect to='/' />
+                }
+              }
+            }
+          </Route>
+          <Route path='/add' exact>
+            {
+              () => {
+                if (this.isLoggedIn()) {
+                  return <ActivityForm />
+                } else {
+                  return <Redirect to='/' />
+                }
+              }
+            }
+          </Route>
+          <Route path='/activityFeedback/:id' exact>
+            {
+              () => {
+                if (this.isLoggedIn()) {
+                  return <TeacherActivity />
                 } else {
                   return <Redirect to='/' />
                 }

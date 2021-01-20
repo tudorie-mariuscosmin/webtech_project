@@ -12,7 +12,7 @@ const models = {
 }
 
 models.User.hasMany(models.Activity)
-models.Activity.hasMany(models.Feedback)
+models.Activity.hasMany(models.Feedback, { onDelete: 'cascade' })
 
 
 

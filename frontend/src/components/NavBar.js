@@ -27,7 +27,9 @@ class NavBar extends Component {
                         {
                             label: 'New Activity',
                             icon: 'pi pi-fw pi-plus',
-
+                            command: () => {
+                                this.props.history.push('/add')
+                            }
                         }
                     ]
                 }, {
