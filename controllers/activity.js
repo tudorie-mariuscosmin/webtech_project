@@ -74,6 +74,10 @@ module.exports = {
                     if (req.body.description) {
                         activity.description = req.body.description
                     }
+                    if (req.body.endAt) {
+                        activity.endAt = req.body.endAt
+                        activity.isOpen = true
+                    }
                     await activity.save()
                     res.status(200).json({ message: "Activity updated!" })
                 } else {

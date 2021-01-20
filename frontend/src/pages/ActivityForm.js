@@ -20,6 +20,7 @@ class ActivityForm extends Component {
             endAt: ''
 
         }
+        this.id = this.props.match.params.id;
         this.handleChange = (e) => {
             this.setState({ [e.target.name]: e.target.value })
         }
@@ -49,22 +50,52 @@ class ActivityForm extends Component {
                     description: this.state.description,
                     endAt: this.state.endAt.toISOString()
                 }
-                axios.post('/api/activity/create', body)
-                    .then(res => {
-                        if (res.status === 201) {
-                            this.toast.show({ severity: 'success', summary: "Activity Created", life: 3000 });
-                            this.props.history.push('/dashboard')
-                        }
 
-                    })
-                    .catch(err => {
-                        console.error(err.response.data)
-                        this.toast.show({ severity: 'error', summary: `${err.response.data.err}`, life: 3000 });
-                    })
+                if (this.id) {
+                    axios.put(`/api/activity/${this.id}`, body)
+                        .then(res => {
+                            if (res.status === 200) {
+                                this.toast.show({ severity: 'success', summary: "Activity Updated", life: 3000 });
+                                this.props.history.push('/dashboard')
+                            }
+
+                        })
+                        .catch(err => {
+                            console.error(err.response.data)
+                            this.toast.show({ severity: 'error', summary: `${err.response.data.err}`, life: 3000 });
+                        })
+                } else {
+                    axios.post('/api/activity/create', body)
+                        .then(res => {
+                            if (res.status === 201) {
+                                this.toast.show({ severity: 'success', summary: "Activity Created", life: 3000 });
+                                this.props.history.push('/dashboard')
+                            }
+
+                        })
+                        .catch(err => {
+                            console.error(err.response.data)
+                            this.toast.show({ severity: 'error', summary: `${err.response.data.err}`, life: 3000 });
+                        })
+                }
             }
 
 
 
+        }
+    }
+
+    componentDidMount() {
+        if (this.id) {
+            axios.get(`/api/activity/id/${this.id}`)
+                .then(res => {
+                    this.setState({
+                        name: res.data.name,
+                        subject: res.data.subject,
+                        description: res.data.description,
+                        endAt: new Date(res.data.endAt)
+                    })
+                })
         }
     }
 
@@ -85,7 +116,7 @@ class ActivityForm extends Component {
                 <Toast ref={(el) => this.toast = el} />
                 <NavBar />
                 <div className="p-fluid form">
-                    <div className="title">Add a new Activity</div>
+                    <div className="title">{this.id ? "Update Activity" : "Add a new Activity"}</div>
                     <div className="p-float-label p-my-2">
                         <InputText type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange} />
                         <label htmlFor="namee">Name</label>
@@ -96,7 +127,7 @@ class ActivityForm extends Component {
 
                     <div className="p-my-2">
                         <label htmlFor="description">Description</label>
-                        <InputTextarea value={this.setState.description} id="description" name="description" onChange={this.handleChange} rows={5} cols={30} autoResize />
+                        <InputTextarea value={this.state.description} id="description" name="description" onChange={this.handleChange} rows={5} cols={30} autoResize />
                     </div>
 
                     <div className="p-my-2">
@@ -106,7 +137,7 @@ class ActivityForm extends Component {
 
                 </div>
                 <div className="activity-form-btn p-mt-3" >
-                    <Button label="Submit" icon="pi pi-check" onClick={this.addActivity} />
+                    <Button label={this.id ? "Update" : "Submit"} icon="pi pi-check" onClick={this.addActivity} />
 
                 </div>
 

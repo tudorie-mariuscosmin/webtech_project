@@ -42,6 +42,9 @@ class Dashboard extends Component {
         this.activityFeedback = (id) => {
             this.props.history.push(`/activityFeedback/${id}`)
         }
+        this.editActivity = (id) => {
+            this.props.history.push(`/add/${id}`)
+        }
 
     }
 
@@ -57,7 +60,7 @@ class Dashboard extends Component {
                         <Button className="p-button-rounded p-button-outlined p-button-danger" icon="pi pi-trash" onClick={() => this.deleteActivity(rowData.id)} />
                     </span>
                     <span>
-                        <Button className="p-button-rounded p-button-outlined p-button-help p-mx-2" icon="pi pi-pencil" />
+                        <Button className="p-button-rounded p-button-outlined p-button-help p-mx-2" icon="pi pi-pencil" onClick={() => { this.editActivity(rowData.id) }} />
                     </span>
                     <span>
                         <Button className="p-button-rounded p-button-outlined" icon="pi pi-search-plus" onClick={() => { this.activityFeedback(rowData.id) }} />
@@ -90,6 +93,8 @@ class Dashboard extends Component {
                     <Column field="isOpen" header="Finished"></Column>
                     <Column body={template}></Column>
                 </DataTable>
+
+
             </div>
         )
     }

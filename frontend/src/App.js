@@ -83,6 +83,17 @@ class App extends React.Component {
               }
             }
           </Route>
+          <Route path='/add/:id' exact>
+            {
+              () => {
+                if (this.isLoggedIn()) {
+                  return <ActivityForm />
+                } else {
+                  return <Redirect to='/' />
+                }
+              }
+            }
+          </Route>
           <Route path='/activityFeedback/:id' exact>
             {
               () => {
