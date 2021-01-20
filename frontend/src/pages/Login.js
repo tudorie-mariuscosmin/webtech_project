@@ -86,7 +86,7 @@ class Login extends React.Component {
                                 </div>
                                 <div>
                                     <span className="p-float-label p-input-icon-left">
-                                        <InputText id="password" name="password" value={this.state.password} onChange={this.changeHandler} />
+                                        <InputText id="password" name="password" type="password" value={this.state.password} onChange={this.changeHandler} />
                                         <i className="pi pi-lock" />
                                         <label htmlFor="password">Password</label>
                                     </span>
