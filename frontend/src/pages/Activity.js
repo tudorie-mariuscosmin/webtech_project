@@ -5,22 +5,30 @@ import axios from 'axios'
 import { Divider } from 'primereact/divider';
 import { Panel } from 'primereact/panel';
 import { Ripple } from 'primereact/ripple';
+import { Button } from 'primereact/button';
+import { Card } from 'primereact/card';
 import io from "socket.io-client";
 import 'primeflex/primeflex.css';
 import '../css/activity.css'
+
+import notFundPhoto from '../assets/img/not-found.png'
 
 class Activity extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             token: this.props.match.params.token,
-            activity: null
+            activity: null,
+            message: ''
         }
         this.socket = io()
         this.getActivity = () => {
             axios.get(`/api/activity/${this.props.match.params.token}`)
                 .then(res => {
                     this.setState({ activity: res.data })
+                })
+                .catch(err => {
+                    this.setState({ message: err.response.data.message })
                 })
         }
 
@@ -33,6 +41,7 @@ class Activity extends React.Component {
         this.socket.emit('joinActivity', { token: this.state.token })
 
     }
+
 
 
     render() {
@@ -65,8 +74,21 @@ class Activity extends React.Component {
             )
 
         } else {
+            const header = (
+                <img alt="Card" src={notFundPhoto} onError={(e) => e.target.src = 'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png'} />
+            );
+            const footer = (
+                <span className="p-d-flex p-jc-center">
+                    <Button label="Back" icon="pi pi-arrow-left" onClick={() => this.props.history.push(`/`)} />
+                </span>
+            );
             return (
-                <div>Activity not found</div>
+                <div className='p-d-flex  p-jc-center '>
+                    <Card title={this.state.message} style={{ width: '50%' }} className="ui-card-shadow " footer={footer} header={header}>
+                        <p className="p-m-0" style={{ lineHeight: '1.5' }}></p>
+                    </Card>
+
+                </div>
             )
         }
 
