@@ -30,6 +30,12 @@ class NavBar extends Component {
 
                         }
                     ]
+                }, {
+                    label: 'Settings',
+                    icon: 'pi pi-fw pi-cog',
+                    command: () => {
+                        this.props.history.push('/settings')
+                    }
                 }
             ],
             isAddUserDialogShown: false,
@@ -88,11 +94,22 @@ class NavBar extends Component {
                 if (res.data.admin) {
                     let adminItems = this.state.items
                     adminItems.push({
-                        label: 'Add User',
-                        icon: 'pi pi-fw pi-user-plus',
-                        command: () => {
-                            this.setState({ isAddUserDialogShown: true })
-                        }
+                        label: "Users",
+                        icon: "pi pi-fw pi-user",
+                        items: [{
+                            label: 'Add User',
+                            icon: 'pi pi-fw pi-user-plus',
+                            command: () => {
+                                this.setState({ isAddUserDialogShown: true })
+                            }
+                        },
+                        {
+                            label: "All Users",
+                            icon: "pi pi-fw pi-users",
+                            command: () => {
+                                this.props.history.push('/allUsers')
+                            }
+                        }]
                     })
                     this.setState({ items: adminItems })
                 }

@@ -4,12 +4,16 @@ import Login from './pages/Login'
 import Activity from './pages/Activity'
 import Dashboard from './pages/Dashboard'
 import axios from 'axios'
+import Settings from './pages/Settings'
+import AllUsers from './pages/AllUsers'
 
 class App extends React.Component {
   isLoggedIn() {
     const token = localStorage.getItem('token')
-    if (token)
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       return true
+    }
     else
       return false
   }
@@ -20,9 +24,8 @@ class App extends React.Component {
           <Route path='/' exact>
             {
               () => {
-                const token = localStorage.getItem('token')
-                if (token) {
-                  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+                if (this.isLoggedIn()) {
                   return <Redirect to='/dashboard' />
                 } else {
                   return <Login />
@@ -37,14 +40,35 @@ class App extends React.Component {
           <Route path='/dashboard' exact>
             {
               () => {
-                if (this.isLoggedIn) {
+                if (this.isLoggedIn()) {
                   return <Dashboard />
                 } else {
                   return <Redirect to='/' />
                 }
               }
             }
-
+          </Route>
+          <Route path='/settings' exact>
+            {
+              () => {
+                if (this.isLoggedIn()) {
+                  return <Settings />
+                } else {
+                  return <Redirect to='/' />
+                }
+              }
+            }
+          </Route>
+          <Route path='/allUsers' exact>
+            {
+              () => {
+                if (this.isLoggedIn()) {
+                  return <AllUsers />
+                } else {
+                  return <Redirect to='/' />
+                }
+              }
+            }
           </Route>
         </Switch>
       </Router>

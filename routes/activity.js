@@ -8,5 +8,6 @@ router.put('/:activityId', authMiddleware.authenticate, activityController.updat
 
 router.get('/:token', activityController.getActivity)
 router.get('/feedback/:activityId', authMiddleware.authenticate, activityController.getFeedback)
+router.delete('/:activityId', authMiddleware.authenticate, activityController.deleteActivity)
 
 module.exports = router

@@ -46,6 +46,10 @@ class Login extends React.Component {
                         localStorage.setItem('token', token)
                         this.props.history.push('/dashboard')
                     })
+                    .catch(err => {
+                        console.log(err)
+                        this.toast.show({ severity: 'error', summary: `${err.response.data.message}`, life: 3000 })
+                    })
             }
         }
     }

@@ -11,13 +11,13 @@ module.exports = {
             try {
                 const user = await User.findOne({ where: { email: req.body.email } })
                 if (!user) {
-                    res.status(404).json({ message: 'User not found' })
+                    res.status(404).json({ message: 'Incorect Email' })
                 } else {
                     if (user.password === req.body.password) {
                         const token = jwt.sign(user.id, jwtSecret)
                         res.status(200).json({ token })
                     } else {
-                        res.status(400).json({ message: 'Invalid credentials' })
+                        res.status(400).json({ message: 'Incorect Password' })
                     }
                 }
             } catch (error) {
