@@ -13,6 +13,7 @@ const io = socketio(server)
 app.use(bodyParser.json())
 
 
+app.use(express.static('public'))
 
 app.use('/api', routes)
 
