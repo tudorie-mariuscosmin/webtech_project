@@ -5,6 +5,8 @@ import { Button } from 'primereact/button';
 import { Toast } from 'primereact/toast';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
+import logo from '../assets/img/logo.png'
+import '../css/login.css'
 
 
 
@@ -42,8 +44,8 @@ class Login extends React.Component {
                     .then(res => {
                         console.log(res.data)
                         const token = res.data.token
-                        axios.defaults.headers.common['authorization'] = `Bearer ${token}`
                         localStorage.setItem('token', token)
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
                         this.props.history.push('/dashboard')
                     })
                     .catch(err => {
@@ -57,13 +59,16 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="p-d-flex p-flex-row p-flex-wrap p-jc-around p-ai-center">
                 <Toast ref={(el) => this.toast = el} />
-                <div>
-                    <TabView>
+                <div className="logo-container">
+                    <img src={logo} className="logo" alt="logo" />
+                </div>
+                <div className="login">
+                    <TabView >
                         <TabPanel header="Student">
                             <div>
-                                <div>
+                                <div className="p-fluid">
                                     <span className="p-float-label">
                                         <InputText id="token" name="token" value={this.state.token} onChange={this.changeHandler} />
 
@@ -71,21 +76,21 @@ class Login extends React.Component {
                                     </span>
                                 </div>
                                 <div>
-                                    <Button label="Login" onClick={this.loginStudent} />
+                                    <Button label="Login" onClick={this.loginStudent} className="p-m-2" />
                                 </div>
                             </div>
                         </TabPanel>
                         <TabPanel header="Teacher">
                             <div>
-                                <div>
-                                    <span className="p-float-label p-input-icon-left">
+                                <div className="p-fluid">
+                                    <span className="p-float-label p-input-icon-left p-my-2">
                                         <InputText id="email" name="email" value={this.state.email} onChange={this.changeHandler} />
                                         <i className="pi pi-envelope" />
                                         <label htmlFor="email">Email</label>
                                     </span>
                                 </div>
-                                <div>
-                                    <span className="p-float-label p-input-icon-left">
+                                <div className="p-fluid">
+                                    <span className="p-float-label p-input-icon-left p-my-2">
                                         <InputText id="password" name="password" type="password" value={this.state.password} onChange={this.changeHandler} />
                                         <i className="pi pi-lock" />
                                         <label htmlFor="password">Password</label>
@@ -103,4 +108,5 @@ class Login extends React.Component {
         )
     }
 }
+
 export default withRouter(Login)

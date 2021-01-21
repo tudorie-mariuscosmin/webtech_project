@@ -57,13 +57,13 @@ class Dashboard extends Component {
             return (
                 <div>
                     <span>
-                        <Button className="p-button-rounded p-button-outlined p-button-danger" icon="pi pi-trash" onClick={() => this.deleteActivity(rowData.id)} />
+                        <Button className="p-button-rounded p-button-outlined p-button-danger p-mx-1" icon="pi pi-trash" onClick={() => this.deleteActivity(rowData.id)} />
                     </span>
                     <span>
-                        <Button className="p-button-rounded p-button-outlined p-button-help p-mx-2" icon="pi pi-pencil" onClick={() => { this.editActivity(rowData.id) }} />
+                        <Button className="p-button-rounded p-button-outlined p-button-help p-mx-1" icon="pi pi-pencil" onClick={() => { this.editActivity(rowData.id) }} />
                     </span>
                     <span>
-                        <Button className="p-button-rounded p-button-outlined" icon="pi pi-search-plus" onClick={() => { this.activityFeedback(rowData.id) }} />
+                        <Button className="p-button-rounded p-button-outlined p-mx-1" icon="pi pi-search-plus" onClick={() => { this.activityFeedback(rowData.id) }} />
                     </span>
                 </div>
             )
